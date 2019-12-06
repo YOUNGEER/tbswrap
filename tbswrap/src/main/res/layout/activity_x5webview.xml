@@ -1,8 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_back"
+            android:layout_width="32dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical|left"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingEnd="12dp"
+            app:srcCompat="@drawable/back" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_close"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|left"
+            android:padding="8dp"
+            app:srcCompat="@drawable/close" />
+
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="加载中..."
+            android:textColor="#5a5a5a"
+            android:textSize="18sp" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ProgressBar
+        android:id="@+id/myProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="invisible" />
 
     <!-- 内容区域 -->
     <FrameLayout
@@ -12,4 +62,4 @@
 
     </FrameLayout>
 
-</RelativeLayout>
+</LinearLayout>

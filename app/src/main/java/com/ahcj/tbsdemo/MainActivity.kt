@@ -6,7 +6,7 @@ class MainActivity : FilechooserActivity() {
 
     override fun initDatas() {
 
-        mX5WebView.loadWebUrl("https://x5.tencent.com/tbs/guide.html")
+        mX5WebView?.loadWebUrl("https://sj.qq.com/")
     }
 
 }

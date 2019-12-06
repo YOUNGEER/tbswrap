@@ -13,7 +13,7 @@ import com.ahcj.tbswrap.x5webview.X5WebView;
  * Used 用于展现打开普通网页；
  */
 
-public class BrowserActivity extends AppCompatActivity {
+public abstract class BrowserActivity extends AppCompatActivity implements X5WebView.X5WebviewCallback {
 	private static final String TAG = BrowserActivity.class.getSimpleName();
 
 	//内容显示区域
@@ -45,7 +45,7 @@ public class BrowserActivity extends AppCompatActivity {
 		//内容显示区域
 		center_layout = (FrameLayout) findViewById(R.id.center_layout);
 
-		mX5WebView = new X5WebView(this, null);
+        mX5WebView = new X5WebView(this, this);
 		center_layout.addView(mX5WebView, new FrameLayout.LayoutParams(
 				FrameLayout.LayoutParams.MATCH_PARENT,
 				FrameLayout.LayoutParams.MATCH_PARENT));
