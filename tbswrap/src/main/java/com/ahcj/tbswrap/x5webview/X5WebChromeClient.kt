@@ -115,11 +115,11 @@ class X5WebChromeClient(
         return mUploadCallbackAboveL
     }
 
-    fun setmUploadMessage(mUploadMessage: android.webkit.ValueCallback<Uri>) {
+    fun setmUploadMessage(mUploadMessage: android.webkit.ValueCallback<Uri>?) {
         this.mUploadMessage = mUploadMessage
     }
 
-    fun setmUploadCallbackAboveL(mUploadCallbackAboveL: android.webkit.ValueCallback<Array<Uri>>) {
+    fun setmUploadCallbackAboveL(mUploadCallbackAboveL: android.webkit.ValueCallback<Array<Uri>>?) {
         this.mUploadCallbackAboveL = mUploadCallbackAboveL
     }
 

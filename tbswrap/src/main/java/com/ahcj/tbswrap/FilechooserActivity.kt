@@ -130,7 +130,7 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
                         onActivityResultAboveL(requestCode, data)//5.0++
                     } else if (mX5WebView!!.x5WebChromeClient!!.getmUploadMessage() != null) {
                         mX5WebView!!.x5WebChromeClient!!.getmUploadMessage()!!.onReceiveValue(result)//将文件路径返回去，填充到input中
-                        mX5WebView!!.x5WebChromeClient!!.setmUploadMessage(null!!)
+                        mX5WebView!!.x5WebChromeClient!!.setmUploadMessage(null)
                     }
                 } else {
                     //此处代码是处理通过js方法触发的情况
@@ -185,11 +185,11 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
         } else if (resultCode == Activity.RESULT_CANCELED) {//resultCode == RESULT_CANCELED 解决不选择文件，直接返回后无法再次点击的问题
             if (mX5WebView!!.x5WebChromeClient!!.getmUploadMessage() != null) {
                 mX5WebView!!.x5WebChromeClient!!.getmUploadMessage()!!.onReceiveValue(null)
-                mX5WebView!!.x5WebChromeClient!!.setmUploadMessage(null!!)
+                mX5WebView!!.x5WebChromeClient!!.setmUploadMessage(null)
             }
             if (mX5WebView!!.x5WebChromeClient!!.getmUploadCallbackAboveL() != null) {
                 mX5WebView!!.x5WebChromeClient!!.getmUploadCallbackAboveL()!!.onReceiveValue(null)
-                mX5WebView!!.x5WebChromeClient!!.setmUploadCallbackAboveL(null!!)
+                mX5WebView!!.x5WebChromeClient!!.setmUploadCallbackAboveL(null)
             }
         }
     }
