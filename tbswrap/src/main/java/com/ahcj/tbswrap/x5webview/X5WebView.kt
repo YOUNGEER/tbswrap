@@ -113,7 +113,7 @@ class X5WebView : WebView {
         this.webViewClient = x5WebViewClient
 
         //实现html文件中可以调用java方法
-        addJavascriptInterface(X5WebViewJSInterface.getInstance(mContext, this), "androidMethod")
+        addJavascriptInterface(X5WebViewJSInterface.getInstance(mContext, this), "appMethodCanBack")
 
 
         /**
@@ -126,7 +126,6 @@ class X5WebView : WebView {
             intent.data = Uri.parse(url)
             mContext?.startActivity(intent)
         }
-
 
     }
 

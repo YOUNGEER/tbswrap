@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.webkit.JavascriptInterface;
 
-
 import com.ahcj.tbswrap.utils.WebviewGlobals;
 
 import java.io.File;
@@ -108,6 +107,14 @@ public class X5WebViewJSInterface {
         //这个方案可以用
         Intent openRecordIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
         ((Activity) context).startActivityForResult(openRecordIntent, WebviewGlobals.RECORD_REQUEST_CODE);
+    }
+
+    /**
+     * finish当前页面
+     */
+    @JavascriptInterface
+    public void finish() {
+        ((Activity) context).finish();
     }
 
 }
