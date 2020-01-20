@@ -217,7 +217,7 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
         }
         Log.w(TAG, "{onActivityResultAboveL}文件路径地址：" + result!!.toString())
         mX5WebView!!.x5WebChromeClient!!.getmUploadCallbackAboveL()!!.onReceiveValue(arrayOf(result))//将文件路径返回去，填充到input中
-        mX5WebView!!.x5WebChromeClient!!.setmUploadCallbackAboveL(null!!)
+        mX5WebView!!.x5WebChromeClient!!.setmUploadCallbackAboveL(null)
         return
     }
 
