@@ -6,7 +6,7 @@
 
     <!-- 内容区域 -->
     <FrameLayout
-        android:id="@+id/title"
+        android:id="@+id/fl_title_view"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 

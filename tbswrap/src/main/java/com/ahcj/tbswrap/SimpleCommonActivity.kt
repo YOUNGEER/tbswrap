@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,8 @@ import com.ahcj.tbswrap.utils.GetPathFromUri4kitkat
 import com.ahcj.tbswrap.utils.WebviewGlobals
 import com.ahcj.tbswrap.x5webview.X5WebView
 import com.ahcj.tbswrap.x5webview.X5WebViewJSInterface
-import kotlinx.android.synthetic.main.activity_x5webview.*
+import kotlinx.android.synthetic.main.activity_common_x5web.*
+import kotlinx.android.synthetic.main.activity_x5webview.center_layout
 import java.io.File
 
 /**
@@ -49,6 +51,14 @@ abstract class SimpleCommonActivity : AppCompatActivity() {
 
     private fun initViews() {
 
+        fl_title_view.addView(
+            addTitleView(),
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            )
+        )
+
         mX5WebView = X5WebView(this)
         center_layout.addView(
             mX5WebView, FrameLayout.LayoutParams(
@@ -61,7 +71,7 @@ abstract class SimpleCommonActivity : AppCompatActivity() {
 
     }
 
-    abstract fun addTitleView()
+    abstract fun addTitleView(): View
 
     /**
      * 记载url
