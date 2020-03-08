@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
 import android.util.AttributeSet
 import android.util.Log
 import android.view.KeyEvent
@@ -27,9 +25,9 @@ class X5WebView : WebView {
     /**是否可以返回到上一页(true:可以，默认；false：不可以) */
     private var canBackPreviousPage = false
     /**当前Webview所处的上下文（默认大家使用的是DialogFragment） */
-    private var mDialog: DialogFragment? = null
+    private var mDialog: androidx.fragment.app.DialogFragment? = null
     private var mActivity: Activity? = null
-    private var mFragment: Fragment? = null
+    private var mFragment: androidx.fragment.app.Fragment? = null
 
     /*
      * 在Code中new实例化一个ew会调用第一个构造函数
@@ -145,7 +143,10 @@ class X5WebView : WebView {
     }
 
     /**设置是否直接退出还是返回上一页面【根据实际情况，可以再返回当前webview的载体（activity或者DialogFragment）进行处理】 */
-    fun setCanBackPreviousPage(canBackPreviousPage: Boolean, dialog: DialogFragment) {
+    fun setCanBackPreviousPage(
+        canBackPreviousPage: Boolean,
+        dialog: androidx.fragment.app.DialogFragment
+    ) {
         this.canBackPreviousPage = canBackPreviousPage
         this.mDialog = dialog
     }
@@ -155,7 +156,10 @@ class X5WebView : WebView {
         this.mActivity = activtiy
     }
 
-    fun setCanBackPreviousPage(canBackPreviousPage: Boolean, fragment: Fragment) {
+    fun setCanBackPreviousPage(
+        canBackPreviousPage: Boolean,
+        fragment: androidx.fragment.app.Fragment
+    ) {
         this.canBackPreviousPage = canBackPreviousPage
         this.mFragment = fragment
     }

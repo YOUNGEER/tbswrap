@@ -7,8 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.webkit.JavascriptInterface;
+
+import androidx.core.content.FileProvider;
 
 import com.ahcj.tbswrap.utils.WebviewGlobals;
 
