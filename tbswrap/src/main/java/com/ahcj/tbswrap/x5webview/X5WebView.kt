@@ -29,6 +29,10 @@ class X5WebView : WebView {
     private var mActivity: Activity? = null
     private var mFragment: androidx.fragment.app.Fragment? = null
 
+    constructor(context: Context) : super(context) {
+        mContext = context
+    }
+
     /*
      * 在Code中new实例化一个ew会调用第一个构造函数
      * 如果在xml中定义会调用第二个构造函数
@@ -111,8 +115,7 @@ class X5WebView : WebView {
         this.webViewClient = x5WebViewClient
 
         //实现html文件中可以调用java方法
-        addJavascriptInterface(X5WebViewJSInterface.getInstance(mContext, this), "appMethodCanBack")
-
+        addJavascriptInterface(X5WebViewJSInterface.getInstance(mContext, this), "androidNative")
 
         /**
          * 对于一些下载的链接，比如apk文件，直接跳转app的系统浏览器

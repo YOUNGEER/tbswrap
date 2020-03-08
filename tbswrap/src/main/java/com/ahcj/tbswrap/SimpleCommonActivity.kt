@@ -8,16 +8,13 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ahcj.tbswrap.utils.GetPathFromUri4kitkat
-import com.ahcj.tbswrap.utils.SchemeUtils
 import com.ahcj.tbswrap.utils.WebviewGlobals
 import com.ahcj.tbswrap.x5webview.X5WebView
 import com.ahcj.tbswrap.x5webview.X5WebViewJSInterface
-import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_x5webview.*
 import java.io.File
 
@@ -25,38 +22,19 @@ import java.io.File
  * Used 用于展示在web端<input type=text></input>的标签被选择之后，文件选择器的制作和生成
  */
 
-abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCallback {
-
-    override fun shouldOverride(view: WebView?, url: String?): Boolean {
-        return SchemeUtils.startActivity(this, url)
-    }
-
-    override fun onPageFinished() {
-        myProgressBar.visibility = View.INVISIBLE
-    }
-
-    override fun onSetWebTitle(title: String?) {
-        toolbar_title.text = title
-    }
-
-    override fun progressChange(newProgress: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            myProgressBar.setProgress(newProgress, true)
-        } else {
-            myProgressBar.progress = newProgress
-        }
-    }
+abstract class SimpleCommonActivity : AppCompatActivity() {
 
     //内容显示区域
     var mX5WebView: X5WebView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_x5webview)
-
+        setContentView(R.layout.activity_common_x5web)
+        addTitleView()
         initViews()
-        initDatas()
         initEvents()
+        initDatas()
+
     }
 
     public override fun onDestroy() {
@@ -71,26 +49,31 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
 
     private fun initViews() {
 
-        mX5WebView = X5WebView(this, this)
+        mX5WebView = X5WebView(this)
         center_layout.addView(
             mX5WebView, FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
         )
-        mX5WebView!!.setCanBackPreviousPage(true, this@FilechooserActivity)//设置可返回上一页
 
-        iv_close.setOnClickListener { finish() }
-        iv_back.setOnClickListener { backEnter() }
+        mX5WebView!!.setCanBackPreviousPage(true, this@SimpleCommonActivity)//设置可返回上一页
 
     }
 
+    abstract fun addTitleView()
+
+    /**
+     * 记载url
+     */
     abstract fun initDatas()
 
 
-    private fun initEvents() {
+    /**
+     * web的setting和回调
+     */
+    abstract fun initEvents()
 
-    }
 
     /**
      * 截取返回软键事件【在activity中写，不能在自定义的X5Webview中】
@@ -135,7 +118,7 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
                     //此处代码是处理通过js方法触发的情况
                     Log.w(TAG, "{onActivityResult}文件路径地址(js)：$result")
                     val filePath = GetPathFromUri4kitkat.getPath(
-                        this@FilechooserActivity,
+                        this@SimpleCommonActivity,
                         Uri.parse(result.toString())
                     )
 
@@ -150,7 +133,7 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
                 val uri = Uri.fromFile(pictureFile)
                 val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
                 intent.data = uri
-                this@FilechooserActivity.sendBroadcast(intent)  // 这里我们发送广播让MediaScanner 扫描我们制定的文件
+                this@SimpleCommonActivity.sendBroadcast(intent)  // 这里我们发送广播让MediaScanner 扫描我们制定的文件
                 // 这样在系统的相册中我们就可以找到我们拍摄的照片了【但是这样一来，就会执行MediaScanner服务中onLoadFinished方法，所以需要注意】
 
                 //拍照
@@ -173,7 +156,7 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
                 )//录音文件路径地址：content://media/external/audio/media/111
 
                 val filePath = GetPathFromUri4kitkat.getPath(
-                    this@FilechooserActivity,
+                    this@SimpleCommonActivity,
                     Uri.parse(result.toString())
                 )
                 Log.w(TAG, "录音文件路径地址：" + filePath!!)
@@ -209,7 +192,7 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
             val uri = Uri.fromFile(pictureFile)
             val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
             intent.data = uri
-            this@FilechooserActivity.sendBroadcast(intent)  // 这里我们发送广播让MediaScanner 扫描我们制定的文件
+            this@SimpleCommonActivity.sendBroadcast(intent)  // 这里我们发送广播让MediaScanner 扫描我们制定的文件
             // 这样在系统的相册中我们就可以找到我们拍摄的照片了【但是这样一来，就会执行MediaScanner服务中onLoadFinished方法，所以需要注意】
 
             result = Uri.fromFile(pictureFile)
@@ -231,7 +214,7 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
             }
         } else {
             Toast.makeText(
-                this@FilechooserActivity,
+                this@SimpleCommonActivity,
                 "当前版本号小于19，无法支持evaluateJavascript，需要使用第三方库JSBridge",
                 Toast.LENGTH_SHORT
             ).show()
@@ -239,6 +222,6 @@ abstract class FilechooserActivity : AppCompatActivity(), X5WebView.X5WebviewCal
     }
 
     companion object {
-        private val TAG = FilechooserActivity::class.java.simpleName
+        private val TAG = SimpleCommonActivity::class.java.simpleName
     }
 }
