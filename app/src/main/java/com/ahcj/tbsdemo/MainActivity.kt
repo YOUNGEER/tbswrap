@@ -1,13 +1,28 @@
 package com.ahcj.tbsdemo
 
 import android.content.Intent
-import com.ahcj.tbswrap.FilechooserActivity
+import android.util.Log
+import android.view.View
+import android.webkit.JavascriptInterface
+import android.widget.TextView
+import com.ahcj.tbswrap.SimpleCommonActivity
+import com.ahcj.tbswrap.x5webview.X5WebView
+import com.tencent.smtt.sdk.WebView
 
-class MainActivity : FilechooserActivity() {
+class MainActivity : SimpleCommonActivity(), X5WebView.X5WebviewCallback {
+    override fun addTitleView(): View {
+        return TextView(this)
+    }
 
     override fun initDatas() {
+        mX5WebView?.initWebViewSettings(this)
+        mX5WebView?.addJavascriptInterface(this, "image")
+        mX5WebView?.loadWebUrl("https://engine.nutsta.cn/index/activity?appKey=4WwZkehFwsSbaasYWkKvpZeEE6VU&adslotId=329974")
+    }
 
-        mX5WebView?.loadWebUrl("https://kefu.easemob.com/webim/im.html?configId=0ca19323-9d81-4c31-88b0-89e73af246b9&hideKeyboard=true")
+    override fun initEvents() {
+
+
     }
 
 
@@ -15,4 +30,29 @@ class MainActivity : FilechooserActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun shouldOverride(view: WebView?, url: String?): Boolean {
+        return false
+    }
+
+    override fun onPageFinished() {
+
+    }
+
+    override fun progressChange(newProgress: Int) {
+
+    }
+
+    override fun onSetWebTitle(title: String?) {
+
+    }
+
+
+    /**
+     * 图片放大
+     */
+    @JavascriptInterface
+    fun openImage(position: Int, array: ArrayList<String>, share: Boolean = true) {
+
+        Log.i("Fasdfsadfsadfasdf", "111111111")
+    }
 }

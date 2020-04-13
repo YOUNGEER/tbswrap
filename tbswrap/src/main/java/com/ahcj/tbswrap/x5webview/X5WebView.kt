@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.KeyEvent
@@ -105,7 +106,7 @@ class X5WebView : WebView {
 
         //在接入SDK后，需要放到创建X5的WebView之后（也就是X5内核加载完成）进行；否则，cookie的相关操作只能影响系统内核。
         //		CookieSyncManager.createInstance(mContext);
-        //		CookieSyncManager.getInstance().sync();
+//        		CookieSyncManager.getInstance().sync();
 
         //使用WebChormClient的特性处理html页面
         x5WebChromeClient = X5WebChromeClient(context, this, x5WebviewCallback)
@@ -116,6 +117,12 @@ class X5WebView : WebView {
 
         //实现html文件中可以调用java方法
         addJavascriptInterface(X5WebViewJSInterface.getInstance(mContext, this), "androidNative")
+
+        //解决webview中http和https图片加载不出来的问题
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            webSetting.setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        webSetting.setBlockNetworkImage(false)
 
         /**
          * 对于一些下载的链接，比如apk文件，直接跳转app的系统浏览器
