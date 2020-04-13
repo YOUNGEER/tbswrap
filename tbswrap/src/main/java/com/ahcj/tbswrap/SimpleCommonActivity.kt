@@ -48,7 +48,6 @@ abstract class SimpleCommonActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-
     private fun initViews() {
 
         fl_title_view.addView(
