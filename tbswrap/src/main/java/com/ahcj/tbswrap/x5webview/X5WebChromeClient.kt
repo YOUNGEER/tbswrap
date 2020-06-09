@@ -3,7 +3,6 @@ package com.ahcj.tbswrap.x5webview
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-
 import com.tencent.smtt.sdk.ValueCallback
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
@@ -42,7 +41,6 @@ class X5WebChromeClient(
 
     private var mUploadMessage: android.webkit.ValueCallback<Uri>? = null//5.0--版本用到的
     private var mUploadCallbackAboveL: android.webkit.ValueCallback<Array<Uri>>? = null//5.0++版本用到的
-
 
     //更改加载进度值
     override fun onProgressChanged(view: WebView?, newProgress: Int) {
