@@ -8,6 +8,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.KeyEvent
+import android.view.ViewGroup
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm
 import com.tencent.smtt.sdk.WebView
@@ -194,6 +195,15 @@ class X5WebView : WebView {
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    fun removeWebView(webView: X5WebView) {
+        webView.stopLoading()
+        val viewGroup = webView.parent as ViewGroup
+        viewGroup.removeView(webView)
+        webView.removeAllViews()
+        webView.webViewClient = null
+        webView.webChromeClient = null
     }
 
     companion object {
