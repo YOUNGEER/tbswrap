@@ -25,6 +25,7 @@ class X5WebView : WebView {
 
     /**是否可以返回到上一页(true:可以，默认；false：不可以) */
     private var canBackPreviousPage = false
+
     /**当前Webview所处的上下文（默认大家使用的是DialogFragment） */
     private var mDialog: androidx.fragment.app.DialogFragment? = null
     private var mActivity: Activity? = null
@@ -42,17 +43,18 @@ class X5WebView : WebView {
     /**在Java代码中new实例化的时候调用 */
     constructor(context: Context, webcallback: X5WebviewCallback) : super(context) {
         mContext = context
+        webViewSettings()
         initWebViewSettings(webcallback)
     }
 
     /**在xml布局文件中定义的时候调用 */
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         mContext = context
-//        initWebViewSettings()
+        webViewSettings()
     }
 
-    public fun initWebViewSettings(webcallback: X5WebviewCallback?) {
-        this.x5WebviewCallback = webcallback
+
+    private fun webViewSettings() {
         // settings 的设计
         val webSetting = this.settings
 
@@ -108,13 +110,6 @@ class X5WebView : WebView {
         //		CookieSyncManager.createInstance(mContext);
 //        		CookieSyncManager.getInstance().sync();
 
-        //使用WebChormClient的特性处理html页面
-        x5WebChromeClient = X5WebChromeClient(context, this, x5WebviewCallback)
-        this.webChromeClient = x5WebChromeClient
-        //使用WebViewClient的特性处理html页面
-        x5WebViewClient = X5WebViewClient(context, x5WebviewCallback)
-        this.webViewClient = x5WebViewClient
-
         //实现html文件中可以调用java方法
         addJavascriptInterface(X5WebViewJSInterface.getInstance(mContext, this), "androidNative")
 
@@ -128,13 +123,21 @@ class X5WebView : WebView {
          * 对于一些下载的链接，比如apk文件，直接跳转app的系统浏览器
          */
         setDownloadListener { url, s1, s2, s3, l ->
-            Log.i("ddddddddddd", "${url}")
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addCategory(Intent.CATEGORY_BROWSABLE)
             intent.data = Uri.parse(url)
             mContext?.startActivity(intent)
         }
+    }
 
+    public fun initWebViewSettings(webcallback: X5WebviewCallback?) {
+        this.x5WebviewCallback = webcallback
+        //使用WebChormClient的特性处理html页面
+        x5WebChromeClient = X5WebChromeClient(context, this, x5WebviewCallback)
+        this.webChromeClient = x5WebChromeClient
+        //使用WebViewClient的特性处理html页面
+        x5WebViewClient = X5WebViewClient(context, x5WebviewCallback)
+        this.webViewClient = x5WebViewClient
     }
 
 
@@ -196,6 +199,7 @@ class X5WebView : WebView {
     companion object {
 
         private val TAG = X5WebView::class.java.simpleName
+
         /**网页编码 */
         private val ENCODENAME = "utf-8"
     }
