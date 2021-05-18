@@ -14,7 +14,7 @@ import com.tencent.smtt.sdk.WebView
 
 class X5WebView : WebView {
     /**上下文 */
-    private var mContext: Context? = null
+    lateinit var mContext: Context
 
     var x5WebviewCallback: X5WebviewCallback? = null
 
@@ -126,14 +126,14 @@ class X5WebView : WebView {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.addCategory(Intent.CATEGORY_BROWSABLE)
             intent.data = Uri.parse(url)
-            mContext?.startActivity(intent)
+            mContext.startActivity(intent)
         }
     }
 
     public fun initWebViewSettings(webcallback: X5WebviewCallback?) {
         this.x5WebviewCallback = webcallback
         //使用WebChormClient的特性处理html页面
-        x5WebChromeClient = X5WebChromeClient(context, this, x5WebviewCallback)
+        x5WebChromeClient = X5WebChromeClient(mContext, this, x5WebviewCallback)
         this.webChromeClient = x5WebChromeClient
         //使用WebViewClient的特性处理html页面
         x5WebViewClient = X5WebViewClient(context, x5WebviewCallback)
