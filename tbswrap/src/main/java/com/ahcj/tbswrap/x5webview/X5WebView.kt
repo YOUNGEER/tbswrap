@@ -33,6 +33,7 @@ class X5WebView : WebView {
 
     constructor(context: Context) : super(context) {
         mContext = context
+        webViewSettings()
     }
 
     /*
