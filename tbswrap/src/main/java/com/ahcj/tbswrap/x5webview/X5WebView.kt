@@ -136,7 +136,7 @@ class X5WebView : WebView {
         x5WebChromeClient = X5WebChromeClient(mContext, this, x5WebviewCallback)
         this.webChromeClient = x5WebChromeClient
         //使用WebViewClient的特性处理html页面
-        x5WebViewClient = X5WebViewClient(context, x5WebviewCallback)
+        x5WebViewClient = X5WebViewClient(mContext, x5WebviewCallback)
         this.webViewClient = x5WebViewClient
     }
 
