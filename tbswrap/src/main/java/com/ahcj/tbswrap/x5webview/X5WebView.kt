@@ -54,7 +54,6 @@ class X5WebView : WebView {
         webViewSettings()
     }
 
-
     private fun webViewSettings() {
         // settings 的设计
         val webSetting = this.settings
