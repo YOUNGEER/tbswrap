@@ -17,7 +17,7 @@ class MainActivity : SimpleCommonActivity(), X5WebView.X5WebviewCallback {
     override fun initDatas() {
         mX5WebView?.initWebViewSettings(this)
         mX5WebView?.addJavascriptInterface(this, "image")
-        mX5WebView?.loadWebUrl("https://www.google.com")
+        mX5WebView?.loadWebUrl("https://www.youku.com")
     }
 
     override fun initEvents() {

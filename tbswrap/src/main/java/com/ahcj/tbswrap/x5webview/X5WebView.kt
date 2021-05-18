@@ -68,8 +68,8 @@ class X5WebView : WebView {
             true//是否允许访问文件，默认允许。注意，这里只是允许或禁止对文件系统的访问，Assets 和 resources 文件使用file:///android_asset和file:///android_res仍是可访问的。
         webSetting.setAppCacheEnabled(true)//应用缓存API是否可用，默认值false, 结合setAppCachePath(String)使用。
         webSetting.setAppCacheMaxSize(java.lang.Long.MAX_VALUE)//设置app缓存容量
-        webSetting.setAppCachePath(mContext!!.applicationContext.getDir("appcache", 0).path)//设置缓存路径
-        Log.e(TAG, "{webview设置缓存路径==}" + mContext!!.applicationContext.getDir("appcache", 0).path)
+        webSetting.setAppCachePath(mContext.applicationContext.getDir("appcache", 0).path)//设置缓存路径
+        Log.e(TAG, "{webview设置缓存路径==}" + mContext.applicationContext.getDir("appcache", 0).path)
         //		webSetting.setDatabaseEnabled(true);//数据库存储API是否可用，默认值false。
         //		webSetting.setDatabasePath(mContext.getApplicationContext().getDir("databases", 0).getPath());
         webSetting.domStorageEnabled = true// 使用localStorage则必须打开, 支持文件存储
@@ -77,7 +77,7 @@ class X5WebView : WebView {
         webSetting.cacheMode =
             WebSettings.LOAD_CACHE_ELSE_NETWORK//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据
         webSetting.setGeolocationDatabasePath(
-            mContext!!.applicationContext.getDir("geolocation", 0)
+            mContext.applicationContext.getDir("geolocation", 0)
                 .path
         )
 
